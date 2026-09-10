@@ -1,5 +1,5 @@
 import math
-from solar import calcular_posicao_solar
+from sombra_cacau.solar import calcular_posicao_solar
 
 def calcular_sombra(altura_arvore, elevacao_solar, azimute_solar):
     """

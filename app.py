@@ -1,9 +1,9 @@
 import streamlit as st
-from solar import calcular_posicao_solar
-from sombra import calcular_sombra
-from copa_sombra import projetar_sombra_copa
-from idade_altura import altura_por_idade
-from mapa_sombra import criar_mapa_sombra
+from sombra_cacau.solar import calcular_posicao_solar
+from sombra_cacau.sombra import calcular_sombra
+from sombra_cacau.copa_sombra import projetar_sombra_copa
+from sombra_cacau.idade_altura import altura_por_idade
+from sombra_cacau.mapa_sombra import criar_mapa_sombra
 from streamlit_folium import st_folium
 from datetime import date
 

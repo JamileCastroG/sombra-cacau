@@ -1,6 +1,6 @@
 import math
-from solar import calcular_posicao_solar
-from sombra import calcular_sombra
+from sombra_cacau.solar import calcular_posicao_solar
+from sombra_cacau.sombra import calcular_sombra
 
 def projetar_sombra_copa(raio_copa, comprimento_sombra, direcao_sombra):
     """
