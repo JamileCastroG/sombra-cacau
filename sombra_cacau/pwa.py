@@ -10,26 +10,26 @@ _TEMPLATE_JS = """
 (function() {
     const doc = window.parent.document;
 
-    if (!doc.querySelector('link[rel="manifest"]')) {
-        const link = doc.createElement('link');
-        link.rel = 'manifest';
-        link.href = 'data:application/manifest+json;base64,__MANIFESTO_B64__';
-        doc.head.appendChild(link);
-    }
+    const manifestoAntigo = doc.querySelector('link[rel="manifest"]');
+    if (manifestoAntigo) { manifestoAntigo.remove(); }
+    const link = doc.createElement('link');
+    link.rel = 'manifest';
+    link.href = 'data:application/manifest+json;base64,__MANIFESTO_B64__';
+    doc.head.appendChild(link);
 
-    if (!doc.querySelector('meta[name="theme-color"]')) {
-        const meta = doc.createElement('meta');
-        meta.name = 'theme-color';
-        meta.content = '#6B4226';
-        doc.head.appendChild(meta);
-    }
+    const themeAntigo = doc.querySelector('meta[name="theme-color"]');
+    if (themeAntigo) { themeAntigo.remove(); }
+    const meta = doc.createElement('meta');
+    meta.name = 'theme-color';
+    meta.content = '#6B4226';
+    doc.head.appendChild(meta);
 
-    if (!doc.querySelector('link[rel="apple-touch-icon"]')) {
-        const appleIcon = doc.createElement('link');
-        appleIcon.rel = 'apple-touch-icon';
-        appleIcon.href = 'data:image/png;base64,__ICONE_192__';
-        doc.head.appendChild(appleIcon);
-    }
+    const appleIconAntigo = doc.querySelector('link[rel="apple-touch-icon"]');
+    if (appleIconAntigo) { appleIconAntigo.remove(); }
+    const appleIcon = doc.createElement('link');
+    appleIcon.rel = 'apple-touch-icon';
+    appleIcon.href = 'data:image/png;base64,__ICONE_192__';
+    doc.head.appendChild(appleIcon);
 
     if (!doc.querySelector('meta[name="apple-mobile-web-app-capable"]')) {
         const appleCapable = doc.createElement('meta');
@@ -52,19 +52,22 @@ _TEMPLATE_JS = """
 def injetar_pwa():
     """
     Injeta um manifesto PWA (Progressive Web App) e metatags relacionadas
-    na pagina, para que o app possa ser "instalado" no celular com icone
-    proprio e abrindo em tela cheia (sem a barra de enderecos do navegador).
+    na pagina, substituindo o manifesto padrao que o Streamlit ja inclui
+    (que aponta para um icone interno quebrado). Faz com que o app possa
+    ser "instalado" no celular com icone proprio e abrindo em tela cheia.
 
     Os icones vao embutidos como base64 dentro do proprio manifesto
     (data URI), entao nao e necessario hospedar arquivos estaticos
     separados -- funciona tanto localmente quanto no Streamlit Cloud.
     """
     manifesto = {
+        "id": "/",
         "name": "Sombra Cacau",
         "short_name": "SombraCacau",
         "description": "Projecao de sombra para cacauicultura",
         "start_url": ".",
         "display": "standalone",
+        "orientation": "any",
         "background_color": "#FAFAF7",
         "theme_color": "#6B4226",
         "icons": [
