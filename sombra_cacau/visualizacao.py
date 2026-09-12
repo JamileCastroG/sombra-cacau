@@ -47,18 +47,18 @@ def criar_visualizacao(latitude, longitude, raio_copa, comprimento_sombra, direc
         "PolygonLayer",
         data=[{"polygon": sombra_coords}],
         get_polygon="polygon",
-        get_fill_color=[30, 30, 30, 130],
-        get_line_color=[15, 15, 15, 200],
-        line_width_min_pixels=1,
+        get_fill_color=[255, 152, 0, 110],   # âmbar translúcido — visível em fundo claro ou escuro
+        get_line_color=[230, 100, 0, 220],
+        line_width_min_pixels=2,
     )
 
     camada_copa = pdk.Layer(
         "PolygonLayer",
         data=[{"polygon": copa_coords}],
         get_polygon="polygon",
-        get_fill_color=[34, 120, 60, 210],
-        get_line_color=[20, 80, 40, 255],
-        line_width_min_pixels=1,
+        get_fill_color=[46, 148, 74, 230],
+        get_line_color=[20, 90, 40, 255],
+        line_width_min_pixels=2,
     )
 
     view_state = pdk.ViewState(latitude=latitude, longitude=longitude, zoom=19, pitch=45)
