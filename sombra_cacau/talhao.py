@@ -1,5 +1,5 @@
 import math
-from shapely.geometry import Point
+from shapely.geometry import Point, box
 from shapely.ops import unary_union
 from shapely.affinity import scale as escalar, rotate as rotacionar, translate as transladar
 
@@ -30,7 +30,7 @@ def _elipse_sombra(centro_x, centro_y, raio_copa, comprimento_sombra, direcao_so
     semi_maior = (comprimento_sombra / 2) + raio_copa
     semi_menor = raio_copa
 
-    circulo = Point(0, 0).buffer(1, resolution=32)
+    circulo = Point(0, 0).buffer(1, quad_segs=8)
     elipse = escalar(circulo, xfact=semi_menor, yfact=semi_maior)
     elipse = rotacionar(elipse, -direcao_sombra, origin=(0, 0))
 
@@ -72,7 +72,8 @@ def simular_talhao(largura_talhao, comprimento_talhao, espacamento_linhas, espac
     ]
 
     uniao = unary_union(poligonos)
-    area_sombreada = uniao.area
+    limite_talhao = box(0, 0, largura_talhao, comprimento_talhao)
+    area_sombreada = uniao.intersection(limite_talhao).area
     percentual = min(100, (area_sombreada / area_talhao) * 100) if area_talhao > 0 else 0
 
     return {
