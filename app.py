@@ -17,9 +17,11 @@ from sombra_cacau.visualizacao_clima import criar_grafico_radiacao
 from sombra_cacau.sazonal import variacao_sazonal
 from sombra_cacau.visualizacao_sazonal import criar_grafico_sazonal
 from sombra_cacau.relatorio import gerar_relatorio_pdf
+from sombra_cacau.pwa import injetar_pwa
 
 
 st.set_page_config(page_title="Sombra do Cacaueiro")
+injetar_pwa()
 st.title("Projeção de Sombra — Cacaueiro")
 st.write("Calcule a área de sombra projetada por uma árvore de cacau em qualquer data e local.")
 
